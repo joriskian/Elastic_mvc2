@@ -6,12 +6,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import bean.Client;
 import commun.IConstante;
 
 
 
 public class LoginCommand implements ICommand {
+	
+	//logger
+	final static Logger logger = Logger.getLogger(command.LoginCommand.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -29,7 +34,7 @@ public class LoginCommand implements ICommand {
 			//verifier si le client est enregistré
 			//si on pas d'utilisateur dans la session
 			if(request.getSession().getAttribute("user")==null) {
-				System.out.println("user est null");
+				logger.debug("dans mon log : user est null");
 				
 				//si le user et valide on l'enregistre dans la session
 				if(cl.isValidate()) {
@@ -41,7 +46,7 @@ public class LoginCommand implements ICommand {
 				
 				
 			}else {
-				System.out.println("mon user "+cl);
+				logger.debug("mon user sous log "+cl);
 			}
 			return stringDeRetour;
 			

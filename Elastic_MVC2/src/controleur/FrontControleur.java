@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import command.ICommand;
 import command.InconnueCommand;
 import commun.IConstante;
@@ -23,6 +25,9 @@ import commun.IConstante;
 //@WebServlet(description = "controleur principal", urlPatterns = { "/frontControleur", "/index", "*.do"}, loadOnStartup=1)
 @WebServlet("/frontControleur")
 public class FrontControleur extends HttpServlet {
+	//on instancie le logger
+	final static Logger logger = Logger.getLogger(controleur.FrontControleur.class);
+	//serialisation
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -46,7 +51,9 @@ public class FrontControleur extends HttpServlet {
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	//methode principal
-    	System.out.println("nom de servlet : "+this.getServletName()+" methode "+request.getMethod()+" uri "+request.getRequestURI());
+    	//on log en debug
+    	logger.error("dans mon log nom de servlet : "+this.getServletName()+" methode "+request.getMethod()+" uri "+request.getRequestURI());
+    	
     	
     	//on recupere la class de command qui correspont à la requete
     	//par exemple // si on m'envoit des infos depuis la page login.jsp ---> cmd = command.LoginCommand
@@ -56,7 +63,7 @@ public class FrontControleur extends HttpServlet {
     	//par exemple //du coup on lance la commande execute de la class command.LoginCommand (qui verifie si le user est valide)
     	//si valide--->renvoi vers --> command.InitCommand ou sinon vers la jsp --> WEB-INF/jsp/login.jsp
     	String urlSuite = command.execute(request, response);
-    	System.out.println("mon url " +urlSuite);
+    	logger.debug("mon url " +urlSuite);
     	//et on la renvoi dans la requete suivante  
     	request.getRequestDispatcher(urlSuite).forward(request, response);
     }
@@ -79,7 +86,7 @@ public class FrontControleur extends HttpServlet {
 		String cmd  =   IConstante.PACKAGE_COMMAND + request.getParameter(IConstante.CLEFS_COMMAND)+IConstante.CLASS_COMMAND;
 		//renvoi un truc du genre "command."+parametre recupéré+"Command" --->command.InitCommand
 		//affichage dans la console
-		System.out.println("FrontControleur, ma cmd : " + cmd);
+		logger.warn("FrontControleur, ma cmd : " + cmd);
 		
 		//initialisation d'une nouvel interface commandeAExecuter
 		ICommand commandeAExecuter;
@@ -100,7 +107,7 @@ public class FrontControleur extends HttpServlet {
 			//ah ah, je l'instancie quand même...
 			commandeAExecuter = (ICommand) Class.forName(cmd).newInstance();
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.debug(e.getMessage());
 			return new InconnueCommand();
 		} 
 			
