@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import command.ICommand;
 import command.InconnueCommand;
 import commun.IConstante;
+import org.apache.log4j.Logger;
 
 /**
  * Servlet implementation class FrontControleur
@@ -25,8 +26,15 @@ import commun.IConstante;
 //@WebServlet(description = "controleur principal", urlPatterns = { "/frontControleur", "/index", "*.do"}, loadOnStartup=1)
 @WebServlet("/frontControleur")
 public class FrontControleur extends HttpServlet {
+<<<<<<< HEAD
 	//on instancie le logger
 	final static Logger logger = Logger.getLogger(controleur.FrontControleur.class);
+=======
+	//mise en place du logger
+	final static Logger logger = Logger.getLogger(controleur.FrontControleur.class);
+	
+	
+>>>>>>> refs/heads/release/filterImplementation
 	//serialisation
 	private static final long serialVersionUID = 1L;
        
@@ -46,14 +54,18 @@ public class FrontControleur extends HttpServlet {
      * @throws ServletException
      * 			problemes avec la servlet
      * @throws IOException
-     * 			probleme d'entrée sortie 
+     * 			probleme d'entrée sortie
      */
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	//methode principal
+<<<<<<< HEAD
     	//on log en debug
     	logger.error("dans mon log nom de servlet : "+this.getServletName()+" methode "+request.getMethod()+" uri "+request.getRequestURI());
     	
+=======
+    	logger.debug("nom de servlet : "+this.getServletName()+" methode "+request.getMethod()+" uri "+request.getRequestURI());
+>>>>>>> refs/heads/release/filterImplementation
     	
     	//on recupere la class de command qui correspont à la requete
     	//par exemple // si on m'envoit des infos depuis la page login.jsp ---> cmd = command.LoginCommand
@@ -86,7 +98,11 @@ public class FrontControleur extends HttpServlet {
 		String cmd  =   IConstante.PACKAGE_COMMAND + request.getParameter(IConstante.CLEFS_COMMAND)+IConstante.CLASS_COMMAND;
 		//renvoi un truc du genre "command."+parametre recupéré+"Command" --->command.InitCommand
 		//affichage dans la console
+<<<<<<< HEAD
 		logger.warn("FrontControleur, ma cmd : " + cmd);
+=======
+		logger.debug("FrontControleur, ma cmd : " + cmd);
+>>>>>>> refs/heads/release/filterImplementation
 		
 		//initialisation d'une nouvel interface commandeAExecuter
 		ICommand commandeAExecuter;
