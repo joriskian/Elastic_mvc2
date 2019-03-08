@@ -6,12 +6,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import bean.Client;
 import commun.IConstante;
 
 
 
 public class LoginCommand implements ICommand {
+	//mise en place du logger
+	final static Logger logger = Logger.getLogger(command.LoginCommand.class);
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -29,19 +33,19 @@ public class LoginCommand implements ICommand {
 			//verifier si le client est enregistré
 			//si on pas d'utilisateur dans la session
 			if(request.getSession().getAttribute("user")==null) {
-				System.out.println("user est null");
+				logger.debug("user est null");
 				
 				//si le user et valide on l'enregistre dans la session
 				if(cl.isValidate()) {
 					request.getSession().setAttribute("user", cl);
-					System.out.println("user est valid "+cl);
+					logger.debug("user est valid "+cl);
 					//on renvoit vers Command.InitCommand
 					stringDeRetour="frontControleur?cmd=Init";
 				}
 				
 				
 			}else {
-				System.out.println("mon user "+cl);
+				logger.debug("mon user "+cl);
 			}
 			return stringDeRetour;
 			

@@ -2,10 +2,12 @@ package service;
 
 import java.util.ArrayList;
 
+import bean.Couleur;
 import bean.Famille;
 import bean.Filtre;
 import bean.Marque;
 import bean.SousFamille;
+import bean.dao.CouleurDAO;
 import bean.dao.FamilleDAO;
 import bean.dao.MarqueDAO;
 import bean.dao.SousFamilleDAO;
@@ -16,9 +18,9 @@ public class MakingFiltre {
 	// constructeur
 	/**
 	 * 
-	 * @param choix 0 : famille 1 : sous famille 2 : marque
+	 * @param choix   0=famille     1=sous famille 2=marque  3=couleurs
 	 * @return
-	 * 		une liste de filtre selon la categorie
+	 * 		une liste de filtre selon la categorie demandée
 	 */
 	public static ArrayList<Filtre> init(int choix) {
 		// j'instancie un nouvel objet filtre
@@ -93,6 +95,29 @@ public class MakingFiltre {
 				filtre.setCategory("marque");
 				// je n'affiche que l'intitulé pour le label
 				filtre.setLabel(m.getLabel());
+				// par defaut unchecked
+				filtre.setChecked(false);
+
+				// j'ajoute cet objet dans ma liste de filtre
+				listFiltre.add(filtre);
+			}break;
+		case 3:
+			// je recupere tout les elements de la category
+			// "couleur"--------------------------------
+			// creation d'un objet liste pour recuperer les elements de la table famille
+			CouleurDAO couleurDAO = new CouleurDAO();
+			ArrayList<Couleur> listCouleur = (ArrayList<Couleur>) couleurDAO.findAll();
+
+			// je recupere les elements 1 par 1 (de type famille donc un id (int) et un nom
+			// (String)
+			for (Couleur c : listCouleur) {
+				int i = 0;
+				// je construit un objet filtre avec l'objet famille
+				Filtre filtre = new Filtre();
+				filtre.setId(i);
+				filtre.setCategory("couleur");
+				// je n'affiche que l'intitulé pour le label
+				filtre.setLabel(c.getIntitule_couleur());
 				// par defaut unchecked
 				filtre.setChecked(false);
 

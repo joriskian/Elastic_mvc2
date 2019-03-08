@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import commun.IConstante;
 
 public class InitCommand implements ICommand {
+	
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
