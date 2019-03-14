@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.Logger;
+
 import command.ICommand;
 import command.InconnueCommand;
 import commun.IConstante;
-import org.apache.log4j.Logger;
+
 
 /**
  * Servlet implementation class FrontControleur
